@@ -1,35 +1,13 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+export default function RootLayout() {
+  return(
+    <Tabs>
+      <Tabs.Screen name="Dashboard" options={{headerShown:false, tabBarStyle: { backgroundColor: '#050505' , paddingTop: "10" , marginTop: "" , borderTopWidth: 0 } , tabBarLabel: "explore" , tabBarIcon: ({color}) => <MaterialIcons name="explore" size={30} color={color} /> ,tabBarActiveTintColor: '#ffffff'}} />
+        <Tabs.Screen name="library" options={{headerShown:false, tabBarStyle: { backgroundColor: '#050505' , paddingTop: "10" , marginTop: "" , borderTopWidth: 0 } , tabBarLabel: "Saved" , tabBarIcon: ({color}) => <MaterialIcons name="library-music" size={30} color={color} /> ,tabBarActiveTintColor: '#ffffff'}} />
+        <Tabs.Screen name="settings" options={{headerShown:false, tabBarStyle: { backgroundColor: '#050505' , paddingTop: "10" , marginTop: "" , borderTopWidth: 0 } , tabBarLabel: "settings" , tabBarIcon: ({color}) => <MaterialIcons name="settings" size={30} color={color} /> ,tabBarActiveTintColor: '#ffffff'}} />
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
     </Tabs>
   );
 }
