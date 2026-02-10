@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useRef } from "react";
 import { ExplorePost } from "@/types/music";
 import {Video} from "expo-av";
+import { Audio } from "expo-av";
 
 type Props = {
     post: ExplorePost;
@@ -17,6 +18,19 @@ export default function SongExplore({post , onPlay , onLike, onDownload , isActi
     
     const { user , description , visual , track , postType} = post;
     const videoRef = useRef<Video>(null);
+
+    useEffect(() => {
+        Audio.setAudioModeAsync({
+            allowsRecordingIOS: false,
+            staysActiveInBackground: true, 
+             
+            playsInSilentModeIOS: true, 
+            shouldDuckAndroid: true, 
+            
+            playThroughEarpieceAndroid: false
+
+        });
+    }, [])
 
     useEffect(() =>{
         if(postType === "video" && videoRef.current){
@@ -51,9 +65,11 @@ export default function SongExplore({post , onPlay , onLike, onDownload , isActi
                         ref={videoRef}
                         source = {visual.video}
                         style = {Styles.cover}
+                        resizeMode="cover"
                         isLooping
-                        shouldPlay = {false}
+                        shouldPlay = {isActive}
                         isMuted = {false}
+                        volume={1.0}
                     />
                 )
 
@@ -112,7 +128,7 @@ const Styles = StyleSheet.create({
     },
     coverContainer : {
         width : "100%",
-        maxHeight : 400,
+        height : 400,
         borderRadius : 5,
         
         alignItems : "center",
