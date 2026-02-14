@@ -5,14 +5,28 @@ import { useMusicPlayer } from "@/context/PlayerComp";
 import { track } from "@/types/data";
 import { Ionicons } from "@expo/vector-icons";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useState } from "react";
 
 type Props = {
     id : string
 }
 
 export default function MusicPlay({ id } : Props){
-    const {play , pause , currentSong , resume , isPlaying} = useMusicPlayer();
+    const [repeat, setRepeat] = useState("repeat");
+    const {play , pause , currentSong , resume , isPlaying ,position, duration , seekTo} = useMusicPlayer();
+    
+    const progress = duration > 0 ? position / duration : 0 ;
+    const formatTime = (seconds: number) => {
+        const totalSecond = Math.floor(seconds); 
+        const secs = totalSecond % 60;
+        const minutes = Math.floor(totalSecond / 60);
+
+        return `${minutes} : ${secs < 10 ? "0" : ""}${secs}`
+    }
+
     const trackData = track.find(track => track.id === id); 
+    
+
 
     if(trackData) {
         return(
@@ -22,6 +36,27 @@ export default function MusicPlay({ id } : Props){
                 <Image source={trackData.cover} style = {style.image} />
             </View>
 
+            <AppText style = {{fontSize: 20 , fontWeight: 800 , marginTop : 20}}>{trackData.title}</AppText>
+
+            <AppText style = {{fontSize: 20 , fontWeight: 300 , marginTop : 8}}>{trackData.artist}</AppText>
+            
+            <View style={style.progressBarBackground}>
+                 <View
+                    style={[
+                        style.progressBarfill,
+                        {width: `${progress * 100}%`}
+                    ]}
+                 >
+
+                 </View>
+            </View>
+            <View style = {style.time}>
+                    <AppText style = {{fontSize : 10}}>{formatTime(position)}</AppText>
+                    <AppText style = {{fontSize : 10}}>{formatTime(duration)}</AppText>
+            </View>
+
+            <View style = {style.playContainer}>
+
             <TouchableOpacity
                 onPress={() => {
                     if(currentSong?.id === trackData.id && isPlaying){
@@ -29,6 +64,7 @@ export default function MusicPlay({ id } : Props){
                     }else if (currentSong?.id === trackData.id){
                         resume();
                     }else{
+                         
                         play({
                             id: trackData.id,
                             title: trackData.title, 
@@ -60,10 +96,21 @@ export default function MusicPlay({ id } : Props){
                 <MaterialIcons name="skip-previous" size={43} color="#ffffff" />
             </TouchableOpacity>
             <TouchableOpacity
-             on
+             onPress={() => { setRepeat("repeat-one") 
+                if(repeat === "repeat-one"){
+                    setRepeat("repeat")
+                }
+                }}
             >
-                <MaterialIcons name="repeat" size={43} color="#ffffff" />
+                <MaterialIcons 
+                name={
+                    repeat === "repeat-one" ? "repeat-one" : "repeat" 
+                 } 
+                 size={43} color="#ffffff" />
             </TouchableOpacity>
+            </View>
+
+            
             
         </View>
 
@@ -79,6 +126,26 @@ export default function MusicPlay({ id } : Props){
 }
 
 const style = StyleSheet.create({
+    time : {
+        flexDirection: "row" , justifyContent: "space-between", marginTop : 5 ,
+        fontSize: 2
+    },
+    progressBarfill : {
+        height: 4, 
+        backgroundColor: "#fff", 
+        borderRadius: 2
+    },
+    progressBarBackground: {
+        height: 4, 
+        backgroundColor: "#444", 
+        width: "100%", 
+        borderRadius: 2 , 
+        marginTop: 20
+    },
+    playContainer : {
+        flexDirection: "row", 
+        marginTop: 20
+    },
         imageContainer: {
             
             marginTop: 50,

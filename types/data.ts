@@ -118,7 +118,7 @@ export const track : Song [] = [
         title: "your girl",
         artist: "Aytee Tenacious", 
         Date: "2026-02-14",
-        audioUrl: "../assets/audio/your girl.mp3", 
+        audioUrl: require("../assets/audio/your girl.mp3"), 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
         type: "explore"
     },{
@@ -126,7 +126,7 @@ export const track : Song [] = [
         title: "Jumpie",
         artist: "Aytee Tenacious, Ona", 
         Date: "2026-02-14",
-        audioUrl: "../assets/audio/jumpie.mp3", 
+        audioUrl: require("../assets/audio/jumpie.mp3"), 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
         type: "explore"
     },{
@@ -134,7 +134,7 @@ export const track : Song [] = [
         title: "Chasing",
         artist: "Aytee Tenacious, Iman", 
         Date: "2026-02-14",
-        audioUrl: "../assets/audio/chasing.wav", 
+        audioUrl: require("../assets/audio/chasing.wav"), 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
         type: "explore"
     },{
@@ -142,7 +142,7 @@ export const track : Song [] = [
         title: "2 Late",
         artist: "Aytee Tenacious", 
         Date: "2026-02-14",
-        audioUrl: "../assets/audio/2 Late.mp3", 
+        audioUrl: require("../assets/audio/2 Late.mp3"), 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
         type: "explore"
     },{
@@ -150,7 +150,7 @@ export const track : Song [] = [
         title: "Cooking Shiiii",
         artist: "Aytee Tenacious", 
         Date: "2026-02-14",
-        audioUrl: "../assets/audio/COOKING SHIII.mp3", 
+        audioUrl: require("../assets/audio/COOKING SHIII.mp3"), 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
         type: "explore"
     }
