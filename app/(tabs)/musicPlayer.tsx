@@ -17,12 +17,6 @@ export default function MusicPlayer() {
         <View style = {styles.container}>
             <MusicPlay
                 id = {play.id}
-                title={play.title}
-                audioUrl={play.audioUrl}
-                artist={play.artist}
-                Date={play.Date}
-                cover={play.cover}
-                type={play.type}
             />
         </View>
     );
