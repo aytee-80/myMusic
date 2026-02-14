@@ -1,4 +1,4 @@
-
+import { ReactNode } from "react";
 export type Song = {
     id: string;
 
@@ -7,10 +7,10 @@ export type Song = {
     Date: string;
 
     audioUrl: string; 
-    cover: any;
+    cover: ReactNode;
 
     duration?: number;
-
+    type : string;
     albumId?: string;
     
 };
@@ -22,14 +22,14 @@ export type ExplorePost = {
 
     user: {
         name : string; 
-        avatar: any;
+        avatar: ReactNode;
     }
 
     description: string;
 
     visual: {
-        image?: any; 
-        video?: any;
+        image?: ReactNode; 
+        video?: ReactNode;
     };
 
     track: Song;

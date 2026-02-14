@@ -19,6 +19,7 @@ export const posts :  ExplorePost [] = [
             artist: "Aytee Tenacious", 
             Date: "2026-01-24",
             audioUrl: "song.mp3", 
+            type: "explore",
             cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
         },
         
@@ -39,7 +40,8 @@ export const posts :  ExplorePost [] = [
             title: "Cooking Shiiii",
             artist: "Aytee Tenacious", 
             Date: "2026-01-24",
-            audioUrl: "song.mp3", 
+            audioUrl: "song.mp3",
+            type: "explore", 
             cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
         }
     },{
@@ -59,6 +61,7 @@ export const posts :  ExplorePost [] = [
             title: "Cooking Shiiii",
             artist: "Aytee Tenacious", 
             Date: "2026-01-24",
+            type: "explore",
             audioUrl: "song.mp3", 
             cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
         }
@@ -80,7 +83,8 @@ export const posts :  ExplorePost [] = [
             title: "Cooking Shiiii",
             artist: "Aytee Tenacious", 
             Date: "2026-01-24",
-            audioUrl: "song.mp3", 
+            audioUrl: "song.mp3",
+            type: "explore", 
             cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
         }
     },{
@@ -101,7 +105,8 @@ export const posts :  ExplorePost [] = [
             title: "Cooking Shiiii",
             artist: "Aytee Tenacious", 
             Date: "2026-01-24",
-            audioUrl: "song.mp3", 
+            audioUrl: "song.mp3",
+            type: "explore", 
             cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
         }
     },
@@ -115,7 +120,7 @@ export const track : Song [] = [
         Date: "2026-02-14",
         audioUrl: "../assets/audio/your girl.mp3", 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
-
+        type: "explore"
     },{
         id: "track3", 
         title: "Jumpie",
@@ -123,7 +128,7 @@ export const track : Song [] = [
         Date: "2026-02-14",
         audioUrl: "../assets/audio/jumpie.mp3", 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
-
+        type: "explore"
     },{
         id: "track3", 
         title: "Chasing",
@@ -131,7 +136,7 @@ export const track : Song [] = [
         Date: "2026-02-14",
         audioUrl: "../assets/audio/chasing.wav", 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
-
+        type: "explore"
     },{
         id: "track4", 
         title: "2 Late",
@@ -139,7 +144,7 @@ export const track : Song [] = [
         Date: "2026-02-14",
         audioUrl: "../assets/audio/2 Late.mp3", 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
-
+        type: "explore"
     },{
         id: "track5", 
         title: "Cooking Shiiii",
@@ -147,6 +152,6 @@ export const track : Song [] = [
         Date: "2026-02-14",
         audioUrl: "../assets/audio/COOKING SHIII.mp3", 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
-
+        type: "explore"
     }
 ]

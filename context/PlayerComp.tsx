@@ -3,7 +3,7 @@ import { Song } from "@/types/music";
 import React, {  ReactNode , createContext , useContext , useState} from "react"; 
 
 type PlayerContextType = {
-    currentTrack: Song | null; 
+    currentSong: Song | null; 
     isPlaying : boolean; 
     play: (track: Song) => void ; 
     pause: () => void; 
@@ -41,7 +41,7 @@ export default function PlayerComp({children} : Props){
     return (
         <MusicPlayerContext.Provider
             value={{
-                currentTrack,
+                currentSong,
                 isPlaying: player.playing,
                 play,
                 pause,

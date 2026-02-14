@@ -25,7 +25,7 @@ export default function Dashboard() {
 
     function handlePlay(trackId : string){
         router.push({
-            pathname: "/(tabs)/library", 
+            pathname: "/(tabs)/musicPlayer", 
             params : {trackId},
             }
         );
