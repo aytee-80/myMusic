@@ -1,10 +1,11 @@
 import { View, Image, StyleSheet , TouchableOpacity} from "react-native";
 import AppText from "./AppText";
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ExplorePost } from "@/types/music";
-import {Video} from "expo-av";
-import { Audio } from "expo-av";
+import { useVideoPlayer , VideoView } from "expo-video";
+import { useEvent } from "expo";
+
 
 type Props = {
     post: ExplorePost;
@@ -15,32 +16,29 @@ type Props = {
 };
 
 export default function SongExplore({post , onPlay , onLike, onDownload , isActive} : Props) {
-    
+    const [manualpause, setManualpause] = useState(false);
     const { user , description , visual , track , postType} = post;
-    const videoRef = useRef<Video>(null);
+    
+    const player = useVideoPlayer (visual.video , player =>{
+        player.loop = true; 
+        
+    });
 
-    useEffect(() => {
-        Audio.setAudioModeAsync({
-            allowsRecordingIOS: false,
-            staysActiveInBackground: true, 
-             
-            playsInSilentModeIOS: true, 
-            shouldDuckAndroid: true, 
-            
-            playThroughEarpieceAndroid: false
+    const {isPlaying} = useEvent (player, 'playingChange' , { isPlaying: player.playing});
 
-        });
-    }, [])
 
     useEffect(() =>{
-        if(postType === "video" && videoRef.current){
-            if(isActive) {
-                videoRef.current.playAsync();
-            }else{
-                videoRef.current.pauseAsync();
+        if(postType === "video" && player){
+            if(isActive && !manualpause) {
+                player.play();
+                
+            }
+            if(!isActive){
+                player.pause();
+                setManualpause(false);
             }
         }
-    }, [isActive , postType]);
+    }, [isActive , manualpause , player , postType]);
 
     return(
         <View style = {Styles.card}>
@@ -60,16 +58,17 @@ export default function SongExplore({post , onPlay , onLike, onDownload , isActi
                     <Image source = {visual.image} style = {Styles.cover}/>
                 )}
 
+
                 {postType === "video" && visual.video && (
-                    <Video 
-                        ref={videoRef}
-                        source = {visual.video}
+                    
+                    <VideoView 
+                        
+                        player={player}
                         style = {Styles.cover}
-                        resizeMode="cover"
-                        isLooping
-                        shouldPlay = {isActive}
-                        isMuted = {false}
-                        volume={1.0}
+                        allowsFullscreen
+                
+                        
+                        
                     />
                 )
 

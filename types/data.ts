@@ -1,4 +1,4 @@
-import { ExplorePost } from "@/types/music";
+import { ExplorePost, Song } from "@/types/music";
 
 export const posts :  ExplorePost [] = [
     {
@@ -35,7 +35,7 @@ export const posts :  ExplorePost [] = [
             image: require("../assets/images/monkey-d-luffy-roronoa-zoro-one-piece-desktop-wallpaper.jpg")   
         }, 
         track: {
-            id: "track1", 
+            id: "track2", 
             title: "Cooking Shiiii",
             artist: "Aytee Tenacious", 
             Date: "2026-01-24",
@@ -55,7 +55,7 @@ export const posts :  ExplorePost [] = [
             image: require("../assets/images/monkey-d-luffy-roronoa-zoro-one-piece-desktop-wallpaper.jpg")   
         }, 
         track: {
-            id: "track1", 
+            id: "track3", 
             title: "Cooking Shiiii",
             artist: "Aytee Tenacious", 
             Date: "2026-01-24",
@@ -76,7 +76,7 @@ export const posts :  ExplorePost [] = [
 
         }, 
         track: {
-            id: "track1", 
+            id: "track4", 
             title: "Cooking Shiiii",
             artist: "Aytee Tenacious", 
             Date: "2026-01-24",
@@ -97,7 +97,7 @@ export const posts :  ExplorePost [] = [
 
         }, 
         track: {
-            id: "track1", 
+            id: "track5", 
             title: "Cooking Shiiii",
             artist: "Aytee Tenacious", 
             Date: "2026-01-24",
@@ -106,3 +106,47 @@ export const posts :  ExplorePost [] = [
         }
     },
 ];
+
+export const track : Song [] = [
+    {
+        id: "track1", 
+        title: "your girl",
+        artist: "Aytee Tenacious", 
+        Date: "2026-02-14",
+        audioUrl: "../assets/audio/your girl.mp3", 
+        cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
+
+    },{
+        id: "track3", 
+        title: "Jumpie",
+        artist: "Aytee Tenacious, Ona", 
+        Date: "2026-02-14",
+        audioUrl: "../assets/audio/jumpie.mp3", 
+        cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
+
+    },{
+        id: "track3", 
+        title: "Chasing",
+        artist: "Aytee Tenacious, Iman", 
+        Date: "2026-02-14",
+        audioUrl: "../assets/audio/chasing.wav", 
+        cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
+
+    },{
+        id: "track4", 
+        title: "2 Late",
+        artist: "Aytee Tenacious", 
+        Date: "2026-02-14",
+        audioUrl: "../assets/audio/2 Late.mp3", 
+        cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
+
+    },{
+        id: "track5", 
+        title: "Cooking Shiiii",
+        artist: "Aytee Tenacious", 
+        Date: "2026-02-14",
+        audioUrl: "../assets/audio/COOKING SHIII.mp3", 
+        cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
+
+    }
+]
