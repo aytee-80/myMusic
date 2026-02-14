@@ -24,7 +24,6 @@ const MusicPlayerContext = createContext<PlayerContextType | null>(null);
 
 export default function PlayerComp({children} : Props){
     const [duration, setDuration] = useState(0); 
-    const [position, setPosition] = useState(0); 
 
     const [currentSong, setCurrentSong] = useState<Song | null>(null); 
 

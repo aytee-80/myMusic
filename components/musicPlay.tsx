@@ -1,5 +1,5 @@
 import { Song } from "@/types/music";
-import { View , Touchable , StyleSheet , Image, TouchableOpacity} from "react-native";
+import { View , PanResponder , GestureResponderEvent ,PanResponderGestureState, StyleSheet , Image, TouchableOpacity} from "react-native";
 import AppText from "./AppText";
 import { useMusicPlayer } from "@/context/PlayerComp";
 import { track } from "@/types/data";
@@ -12,10 +12,34 @@ type Props = {
 }
 
 export default function MusicPlay({ id } : Props){
+    
+    const progressBarWidth = 300; 
+    const [isDragging, setIsDragging] = useState(false);
+    const [dragPosition , setDragPosition] = useState<number | null> (null);
     const [repeat, setRepeat] = useState("repeat");
     const {play , pause , currentSong , resume , isPlaying ,position, duration , seekTo} = useMusicPlayer();
     
-    const progress = duration > 0 ? position / duration : 0 ;
+    const panResponder = PanResponder.create({
+        onStartShouldSetPanResponder: () => true, 
+        onPanResponderGrant: () => {
+            setIsDragging(true);
+        },
+        onPanResponderMove: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => {
+       const newProgress = Math.min(Math.max(gestureState.dx / progressBarWidth, 0) ,1); 
+       const newPositon =  newProgress * duration; 
+       setDragPosition(newPositon);  
+    },
+    onPanResponderRelease: async (e , gestureState) => {
+        const newProgress = Math.min(Math.max(gestureState.dx / progressBarWidth, 0) , 1); 
+        const newPosition = newProgress * duration; 
+        await seekTo(newPosition);
+        setDragPosition(null); 
+        setIsDragging(false);    
+    } 
+    });
+
+    const displayPosition = dragPosition !== null ? dragPosition : position; 
+    const progress = duration > 0 ? displayPosition / duration : 0 ;
     const formatTime = (seconds: number) => {
         const totalSecond = Math.floor(seconds); 
         const secs = totalSecond % 60;
@@ -25,6 +49,7 @@ export default function MusicPlay({ id } : Props){
     }
 
     const trackData = track.find(track => track.id === id); 
+    
     
 
 
@@ -40,7 +65,7 @@ export default function MusicPlay({ id } : Props){
 
             <AppText style = {{fontSize: 20 , fontWeight: 300 , marginTop : 8}}>{trackData.artist}</AppText>
             
-            <View style={style.progressBarBackground}>
+            <View style={style.progressBarBackground}{...panResponder.panHandlers}>
                  <View
                     style={[
                         style.progressBarfill,
