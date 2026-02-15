@@ -12,7 +12,7 @@ export type Song = {
     duration?: number;
     type : "explore" | "Playlist" | "Album" | "Liked Songs" | "Single";
     albumId?: string;
-    
+    liked: boolean;
 };
 
 export type ExplorePost = {
