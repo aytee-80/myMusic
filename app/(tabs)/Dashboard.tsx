@@ -2,17 +2,20 @@ import { View ,StyleSheet ,FlatList} from "react-native";
 import AppText from "../../components/AppText";
 import SongExplore from "../../components/SongExplore";
 import Search from "@/components/Search";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/build/MaterialIcons";
 import { posts } from "@/types/data";
-
+import { useMusicPlayer } from "@/context/PlayerComp";
+import { Ionicons } from "@expo/vector-icons";
+import Play from "@/components/play";
 
  
 export default function Dashboard() {
+    
+    const {isPlaying , pause , resume , currentSong} = useMusicPlayer();
     const [activePostId, setActivePostId] = useState<string | null>(null);
     const router = useRouter();
-    
     const viewabilityConfig = useRef({
         itemVisiblePercentThreshold: 60
     });
@@ -22,6 +25,7 @@ export default function Dashboard() {
             setActivePostId(viewableItems[0].item.id);
         }
     });
+    
 
     function handlePlay(trackId : string){
         router.push({
@@ -46,6 +50,10 @@ export default function Dashboard() {
                  data={posts}
                  keyExtractor={(item) => item.id}
                  showsVerticalScrollIndicator = {false}
+                 removeClippedSubviews
+                 windowSize={5}
+                 initialNumToRender={3}
+                 maxToRenderPerBatch={3}
                  viewabilityConfig={viewabilityConfig.current}
                  onViewableItemsChanged={onViewableItemsChanged.current}
                  ListHeaderComponent={() => (
@@ -75,7 +83,12 @@ export default function Dashboard() {
             
             <Search       
             onPress={() => router.push("/(tabs)/library")}
-        />
+            />
+            <Play 
+            onPress={() => isPlaying === true ? pause() : resume()} 
+            type = "explore"
+            isPlaying = {isPlaying}
+            />
         </View>
         
     );

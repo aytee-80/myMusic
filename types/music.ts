@@ -10,7 +10,7 @@ export type Song = {
     cover: ReactNode;
 
     duration?: number;
-    type : string;
+    type : "explore" | "Playlist" | "Album" | "Liked Songs" | "Single";
     albumId?: string;
     
 };

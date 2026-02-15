@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { ExplorePost } from "@/types/music";
 import { useVideoPlayer , VideoView } from "expo-video";
 import { useEvent } from "expo";
-
+import {useMusicPlayer} from "@/context/PlayerComp";
 
 type Props = {
     post: ExplorePost;
@@ -18,28 +18,42 @@ type Props = {
 export default function SongExplore({post , onPlay , onLike, onDownload , isActive} : Props) {
     const [manualpause, setManualpause] = useState(false);
     const { user , description , visual , track , postType} = post;
-    
+    const {pause , resume} = useMusicPlayer();
+
+    const wasPlayingRef = useRef(false);
+
     const player = useVideoPlayer (visual.video , player =>{
         player.loop = true; 
-        
+            
     });
+
+    
 
     const {isPlaying} = useEvent (player, 'playingChange' , { isPlaying: player.playing});
 
 
     useEffect(() =>{
         if(postType === "video" && player){
-            if(isActive && !manualpause) {
-                player.play();
                 
+            if(isActive) {
+                pause(); 
+                
+                const timer = setTimeout(() => {
+                    player.play();
+                },1000)
+
+                return () => clearTimeout(timer);
             }
+            
             if(!isActive){
                 player.pause();
                 setManualpause(false);
+                
             }
         }
-    }, [isActive , manualpause , player , postType]);
+    }, [isActive]);
 
+    
     return(
         <View style = {Styles.card}>
             <View style={Styles.profileContainer}>
@@ -66,7 +80,7 @@ export default function SongExplore({post , onPlay , onLike, onDownload , isActi
                         player={player}
                         style = {Styles.cover}
                         allowsFullscreen
-                
+                        
                         
                         
                     />

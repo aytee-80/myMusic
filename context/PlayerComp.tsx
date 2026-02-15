@@ -1,7 +1,7 @@
 import { useAudioPlayer , AudioPlayer, useAudioPlayerStatus} from "expo-audio";
 import { Song } from "@/types/music";
 import React, {  ReactNode , createContext , useContext , useEffect, useState} from "react"; 
-
+import { track } from "@/types/data";
 
 type PlayerContextType = {
     currentSong: Song | null; 
@@ -12,7 +12,10 @@ type PlayerContextType = {
     seekTo: (millis: number) => void; 
     duration: number; 
     position: number; 
-    
+    playNext: () => void; 
+    playPrevious: () => void; 
+    repeat: "repeat" | "repeat-on" | "repeat-one"; 
+    setRepeat : React.Dispatch<React.SetStateAction<"repeat" | "repeat-one" | "repeat-on">>;
 } 
 
 type Props = {
@@ -24,8 +27,9 @@ const MusicPlayerContext = createContext<PlayerContextType | null>(null);
 
 export default function PlayerComp({children} : Props){
     const [duration, setDuration] = useState(0); 
-
+    const [position , setPosition] = useState(0);
     const [currentSong, setCurrentSong] = useState<Song | null>(null); 
+    const [repeat, setRepeat] = useState<"repeat" | "repeat-on" | "repeat-one">("repeat");
 
     const player = useAudioPlayer(); 
     const status = useAudioPlayerStatus(player);
@@ -36,7 +40,10 @@ export default function PlayerComp({children} : Props){
             await player.play();
             return;
         }
-        player.seekTo(0);
+        if(status.didJustFinish){
+            player.seekTo(0);
+        }
+        
         player.play();
     };
     
@@ -48,6 +55,64 @@ export default function PlayerComp({children} : Props){
         player.play();
     }
 
+    const playNext = async () => {
+        if(!currentSong) return; 
+
+        const currentIndex = track.findIndex(t => t.id === currentSong.id); 
+
+        if(track.length === 1 ){
+            player.seekTo(0); 
+            player.play();
+        }
+        if(currentSong.type !== "explore" && currentSong.type !== "Single" ){
+            const nextIndex = (currentIndex + 1 ) % track.length; 
+            const nextTrack = track[nextIndex]; 
+
+            setCurrentSong(nextTrack);
+
+            await player.replace(nextTrack.audioUrl); 
+            await player.play
+        }
+        
+    }
+
+    const playPrevious = async () => {
+        if(!currentSong) return; 
+
+        const currentIndex = track.findIndex(t => t.id === currentSong.id); 
+
+        if(track.length === 1 ){
+            player.seekTo(0); 
+            player.play();
+        }
+
+        if(currentSong.type !== "explore" && currentSong.type !== "Single"){
+            const prevIndex = (currentIndex - 1 ) % track.length; 
+            const prevTrack = track[prevIndex]; 
+            setCurrentSong(prevTrack);
+            await player.replace(prevTrack.audioUrl); 
+            await player.play();
+        }
+        
+    }
+
+    useEffect(()=> {
+        if(!status.isLoaded || !status.didJustFinish) return; 
+        
+        handleSongEnd();
+    }, [status.didJustFinish]);
+
+    const handleSongEnd = () => {
+        if(!currentSong) return; 
+
+        if(repeat === "repeat-one"){
+            player.seekTo(0); 
+            player.play();
+            return;
+        }
+
+        playNext();
+    }
     const seekTo = async(millis: number) => {
         await player.seekTo(millis);
     }
@@ -56,14 +121,17 @@ export default function PlayerComp({children} : Props){
         <MusicPlayerContext.Provider
             value={{
                 currentSong,
-                isPlaying: player.playing,
+                isPlaying: status.playing ?? false,
                 play,
                 pause,
                 resume, 
                 seekTo, 
                 duration: status.duration ?? 0, 
                 position : status.currentTime ?? 0, 
-                
+                playNext, 
+                playPrevious , 
+                repeat , 
+                setRepeat
             }}
         >
             {children}

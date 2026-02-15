@@ -13,26 +13,36 @@ type Props = {
 
 export default function MusicPlay({ id } : Props){
     
+    const [barWidth , setBarWidth] = useState(0);
     const progressBarWidth = 300; 
     const [isDragging, setIsDragging] = useState(false);
     const [dragPosition , setDragPosition] = useState<number | null> (null);
-    const [repeat, setRepeat] = useState("repeat");
-    const {play , pause , currentSong , resume , isPlaying ,position, duration , seekTo} = useMusicPlayer();
+    const {play , pause , currentSong , resume , isPlaying ,position, duration , seekTo , playNext , playPrevious , repeat , setRepeat } = useMusicPlayer();
     
+
+    const calculatePosition = (touchX : number) =>{
+        const clampedX = Math.min(Math.max(touchX, 0), barWidth); 
+        const progress = clampedX / barWidth; 
+        return progress * duration;
+    }
+
+    const updatePosition = (touchX: number) => {
+        const newPos = calculatePosition(touchX); 
+        setDragPosition(newPos);
+    }
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true, 
-        onPanResponderGrant: () => {
+        onPanResponderGrant: (e) => {
             setIsDragging(true);
+            updatePosition(e.nativeEvent.locationX);
         },
-        onPanResponderMove: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => {
-       const newProgress = Math.min(Math.max(gestureState.dx / progressBarWidth, 0) ,1); 
-       const newPositon =  newProgress * duration; 
-       setDragPosition(newPositon);  
+        onPanResponderMove: (e) => {
+       
+       updatePosition(e.nativeEvent.locationX);  
     },
-    onPanResponderRelease: async (e , gestureState) => {
-        const newProgress = Math.min(Math.max(gestureState.dx / progressBarWidth, 0) , 1); 
-        const newPosition = newProgress * duration; 
-        await seekTo(newPosition);
+    onPanResponderRelease: async (e) => {
+        const newPos = calculatePosition(e.nativeEvent.locationX); 
+        await seekTo(newPos);
         setDragPosition(null); 
         setIsDragging(false);    
     } 
@@ -65,7 +75,11 @@ export default function MusicPlay({ id } : Props){
 
             <AppText style = {{fontSize: 20 , fontWeight: 300 , marginTop : 8}}>{trackData.artist}</AppText>
             
-            <View style={style.progressBarBackground}{...panResponder.panHandlers}>
+            <View style={style.progressBarBackground}
+            onLayout={(e) => {
+                setBarWidth(e.nativeEvent.layout.width)
+            }}
+            {...panResponder.panHandlers}>
                  <View
                     style={[
                         style.progressBarfill,
@@ -114,22 +128,25 @@ export default function MusicPlay({ id } : Props){
 
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={playNext}>
                 <MaterialIcons name="skip-next" size={43} color="#ffffff" />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={playPrevious}>
                 <MaterialIcons name="skip-previous" size={43} color="#ffffff" />
             </TouchableOpacity>
             <TouchableOpacity
-             onPress={() => { setRepeat("repeat-one") 
-                if(repeat === "repeat-one"){
-                    setRepeat("repeat")
-                }
+             onPress={() => { setRepeat(prev => 
+                prev === "repeat" 
+                ? "repeat-on"
+                : prev === "repeat-on" 
+                ? "repeat-one"
+                : "repeat"
+             );
                 }}
             >
                 <MaterialIcons 
                 name={
-                    repeat === "repeat-one" ? "repeat-one" : "repeat" 
+                    repeat === "repeat-on" ? "repeat-on" : repeat === "repeat-one" ? "repeat-one" : "repeat" 
                  } 
                  size={43} color="#ffffff" />
             </TouchableOpacity>
