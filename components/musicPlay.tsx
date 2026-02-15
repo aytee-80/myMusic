@@ -1,11 +1,12 @@
 import { Song } from "@/types/music";
-import { View , PanResponder , GestureResponderEvent ,PanResponderGestureState, StyleSheet , Image, TouchableOpacity} from "react-native";
+import { View , PanResponder , GestureResponderEvent ,PanResponderGestureState, StyleSheet , Image, TouchableOpacity, LayoutAnimation} from "react-native";
 import AppText from "./AppText";
 import { useMusicPlayer } from "@/context/PlayerComp";
 import { track } from "@/types/data";
 import { Ionicons } from "@expo/vector-icons";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useState } from "react";
+import { useFocusEffect } from "expo-router";
 
 type Props = {
     id : string
@@ -58,10 +59,11 @@ export default function MusicPlay({ id } : Props){
         return `${minutes} : ${secs < 10 ? "0" : ""}${secs}`
     }
 
+
     const trackData = track.find(track => track.id === id); 
     
     
-
+    
 
     if(trackData) {
         return(
