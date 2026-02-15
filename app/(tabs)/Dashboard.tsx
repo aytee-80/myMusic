@@ -10,9 +10,10 @@ import { useMusicPlayer } from "@/context/PlayerComp";
 import { Ionicons } from "@expo/vector-icons";
 import Play from "@/components/play";
 
- 
+
 export default function Dashboard() {
     
+
     const {isPlaying , pause , resume , currentSong} = useMusicPlayer();
     const [activePostId, setActivePostId] = useState<string | null>(null);
     const router = useRouter();
@@ -36,7 +37,8 @@ export default function Dashboard() {
     }
 
     function handleLike(trackId: string){
-        console.log("liked" , trackId);
+        const song = track.find(song => song.id === trackId); 
+        song?.liked = { "Liked"};
     }
 
     function handleDownload(trackId: string ){
