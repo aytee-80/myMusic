@@ -2,6 +2,7 @@ import { useAudioPlayer , AudioPlayer, useAudioPlayerStatus} from "expo-audio";
 import { Song } from "@/types/music";
 import React, {  ReactNode , createContext , useContext , useEffect, useState} from "react"; 
 import { track } from "@/types/data";
+import { posts } from "@/types/data";
 
 type PlayerContextType = {
     currentSong: Song | null; 
@@ -26,10 +27,26 @@ const MusicPlayerContext = createContext<PlayerContextType | null>(null);
  
 
 export default function PlayerComp({children} : Props){
-    const [duration, setDuration] = useState(0); 
-    const [position , setPosition] = useState(0);
+    
     const [currentSong, setCurrentSong] = useState<Song | null>(null); 
     const [repeat, setRepeat] = useState<"repeat" | "repeat-on" | "repeat-one">("repeat");
+    const [postList, setPostList] = useState(posts);
+
+    function handleLike(trackId: string){
+        setPostList(prev => 
+            prev.map(post =>
+                post.track.id === trackId 
+                ? {
+                    ...post,
+                    track: {
+                        ...post.track,
+                        liked: !post.track.liked
+                    }
+                }
+                : post
+            )
+        );
+    }
 
     const player = useAudioPlayer(); 
     const status = useAudioPlayerStatus(player);
