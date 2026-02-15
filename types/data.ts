@@ -1,5 +1,6 @@
 import { ExplorePost, Song } from "@/types/music";
 
+
 export const posts :  ExplorePost [] = [
     {
         id: "post1", 
@@ -14,7 +15,8 @@ export const posts :  ExplorePost [] = [
             image: require("../assets/images/monkey-d-luffy-roronoa-zoro-one-piece-desktop-wallpaper.jpg")   
         }, 
         track: {
-            id: "track1", 
+            id: "track1",
+            liked: false, 
             title: "Cooking Shiiii",
             artist: "Aytee Tenacious", 
             Date: "2026-01-24",
@@ -43,6 +45,7 @@ export const posts :  ExplorePost [] = [
             audioUrl: "song.mp3",
             type: "explore", 
             cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
+            liked: false,
         }
     },{
         id: "post3", 
@@ -64,6 +67,7 @@ export const posts :  ExplorePost [] = [
             type: "explore",
             audioUrl: "song.mp3", 
             cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
+            liked: false,
         }
     },{
         id: "post4", 
@@ -86,6 +90,7 @@ export const posts :  ExplorePost [] = [
             audioUrl: "song.mp3",
             type: "explore", 
             cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
+            liked: false,
         }
     },{
         id: "post5", 
@@ -108,6 +113,7 @@ export const posts :  ExplorePost [] = [
             audioUrl: "song.mp3",
             type: "explore", 
             cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
+            liked: false,
         }
     },
 ];
@@ -120,7 +126,8 @@ export const track : Song [] = [
         Date: "2026-02-14",
         audioUrl: require("../assets/audio/your girl.mp3"), 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
-        type: "explore"
+        type: "explore",
+        liked: false,
     },{
         id: "track3", 
         title: "Jumpie",
@@ -128,7 +135,8 @@ export const track : Song [] = [
         Date: "2026-02-14",
         audioUrl: require("../assets/audio/jumpie.mp3"), 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
-        type: "explore"
+        type: "explore",
+        liked: false,
     },{
         id: "track3", 
         title: "Chasing",
@@ -136,7 +144,8 @@ export const track : Song [] = [
         Date: "2026-02-14",
         audioUrl: require("../assets/audio/chasing.wav"), 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
-        type: "explore"
+        type: "explore",
+        liked: false,
     },{
         id: "track4", 
         title: "2 Late",
@@ -144,7 +153,8 @@ export const track : Song [] = [
         Date: "2026-02-14",
         audioUrl: require("../assets/audio/2 Late.mp3"), 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
-        type: "explore"
+        type: "explore",
+        liked: false,
     },{
         id: "track5", 
         title: "Cooking Shiiii",
@@ -152,6 +162,7 @@ export const track : Song [] = [
         Date: "2026-02-14",
         audioUrl: require("../assets/audio/COOKING SHIII.mp3"), 
         cover: require("../assets/images/ad225e048006855de8986d61d10c636e.jpg"),
-        type: "explore"
+        type: "explore",
+        liked: false,
     }
 ]
