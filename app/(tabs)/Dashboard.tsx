@@ -37,8 +37,7 @@ export default function Dashboard() {
     }
 
     function handleLike(trackId: string){
-        const song = track.find(song => song.id === trackId); 
-        song?.liked = { "Liked"};
+        console.log("song Liked");
     }
 
     function handleDownload(trackId: string ){
