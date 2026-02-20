@@ -1,11 +1,11 @@
 import { View ,StyleSheet , ScrollView} from "react-native"; 
 import AppText from "../../components/AppText";
+import AuthModel from "@/components/authModel";
+
 export default function Settings() {
     return(
         <View style = {styles.container}>
-            <ScrollView style= {styles.container2}>
-                <AppText>View</AppText>
-            </ScrollView>
+           <AuthModel/>]
         </View>
     );
 }
