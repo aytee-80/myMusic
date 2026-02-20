@@ -1,12 +1,7 @@
 import AppText from "./AppText";
 import { View , TouchableOpacity, ScrollView, TextInput , StyleSheet } from "react-native";
 
-type details = {
-    username: string;
-    email: string;
-    password: string;
 
-}
 export default function AuthModel(){
     return(
         <View style = {style.container}>
