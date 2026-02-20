@@ -1,8 +1,18 @@
 import AppText from "./AppText";
 import { View , TouchableOpacity, ScrollView, TextInput , StyleSheet } from "react-native";
+import { useAuth } from "@/hooks/auth";
 
 
 export default function AuthModel(){
+    const { loginWithGoogle } = useAuth();  
+    
+    const handleGoogleLogin = async () => {
+        try{
+            await loginWithGoogle();
+        }catch(err){
+            console.error(err);
+        }
+    }
     return(
         <View style = {style.container}>
             <ScrollView
@@ -80,7 +90,9 @@ export default function AuthModel(){
                     fontWeight:600
                 }}>Submit</AppText>
             </TouchableOpacity>
-            <TouchableOpacity style = {{
+            <TouchableOpacity 
+            onPress={handleGoogleLogin}
+            style = {{
                 backgroundColor: "#868686",
                 marginTop: 30,
                 height: 40, 
