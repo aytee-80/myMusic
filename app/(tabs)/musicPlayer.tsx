@@ -6,6 +6,7 @@ import { useSearchParams } from "expo-router/build/hooks";
 import { useState } from "react";
 
 export default function MusicPlayer() {
+    console.log("Music Player");
     const paramss = useSearchParams(); 
 
     const idparam = paramss.get("trackId");
