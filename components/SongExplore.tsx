@@ -20,7 +20,6 @@ export default function SongExplore({post , onPlay , onLike, onDownload , isActi
     const { user , description , visual , track , postType} = post;
     const {pause , resume} = useMusicPlayer();
 
-    const wasPlayingRef = useRef(false);
 
     const player = useVideoPlayer (visual.video , player =>{
         player.loop = true; 
