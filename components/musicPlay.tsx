@@ -112,8 +112,9 @@ export default function MusicPlay({ id } : Props){
                             artist: trackData.artist, 
                             audioUrl : trackData.audioUrl, 
                             Date: trackData.Date,
-                            cover:trackData.cover, 
-                            type : trackData.type 
+                            cover:trackData.cover,
+                            liked: false, 
+                            type : trackData.type, 
                         }); 
                     }
                 }}
