@@ -3,6 +3,7 @@ import AppText from "../../components/AppText";
 import AuthModel from "@/components/authModel";
 
 export default function Settings() {
+    console.log("Settings");
     return(
         <View style = {styles.container}>
            <AuthModel/>]
