@@ -34,7 +34,7 @@ export default function AuthModel(){
                 fontWeight: 700
             }}>Username</AppText>
             <TextInput 
-                placeholder="Grax 77"
+                placeholder="Grax 777"
                 style = {{
                     backgroundColor: "#726f6f",
                     width: "100%",
