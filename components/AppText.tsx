@@ -10,6 +10,6 @@ export default function AppText(props: TextProps){
 
 const styles = StyleSheet.create({
     text: {
-        color: "#ffffff",
+        color: "#fffff",
     }
 });
