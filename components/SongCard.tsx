@@ -10,6 +10,7 @@ type Song = {
 };
 
 export default function SongCard({ title, artist , cover , Date} : Song) {
+    console.log("title: " , title);
     return(
         <View style = {Styles.card}> 
             <Image source = {cover} style = {Styles.cover}/>
