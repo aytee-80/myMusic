@@ -6,5 +6,6 @@ export const Api_Url = () => {
     }else{
         return 'http://172.20.10.4:3000';
     }
+    console.log("");
     
 };
