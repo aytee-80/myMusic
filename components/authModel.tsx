@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/auth";
 
 export default function AuthModel(){
     const { loginWithGoogle } = useAuth();  
-    
+    console.log("");
     const handleGoogleLogin = async () => {
         try{
             await loginWithGoogle();
