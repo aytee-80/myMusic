@@ -7,6 +7,7 @@ export const loginWithFirebaseToken = async (idToken: String) => {
             'Content-Type': 'application/json', 
             Authorization: `Bearer ${idToken}`,
         }
+        console.log("");
     }); 
 
     if(!Response){
