@@ -12,6 +12,7 @@ const firebaseConfig = {
     measurementId: process.env.EXPO_PUBLIC_MEASUREMENT_ID as string
 };
 console.log("API:", process.env.EXPO_PUBLIC_API_KEY);
+console.log("");
 
 const app = initializeApp(firebaseConfig); 
 export const fire = getAuth(app); 
