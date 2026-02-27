@@ -34,7 +34,7 @@ export function useGoogleAuth(){
             const googleCredential = GoogleAuthProvider.credential(idToken); 
 
             const userCredential = await signInWithCredential(fire , googleCredential);
-
+            console.log("");
             return idToken;
         }catch(error){
             console.error('Google sign-in error: ' , error);
