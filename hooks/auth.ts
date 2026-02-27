@@ -7,7 +7,7 @@ export const useAuth = () => {
     const loginWithGoogle = async() => {
         const idToken = await signinGoogle();
         const backendVerify = await loginWithFirebaseToken(idToken); 
-
+        console.log("");
         return backendVerify;
     }
 
