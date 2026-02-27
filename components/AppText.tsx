@@ -1,6 +1,7 @@
 import {Text ,TextProps , StyleSheet} from "react-native";
 
 export default function AppText(props: TextProps){
+    console.log("");
     return(
         <Text {...props} style={[styles.text, props.style]}>
             {props.children}
